@@ -33,7 +33,7 @@
 			this.tabPageProcesses = new System.Windows.Forms.TabPage();
 			this.statusStrip = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusLabelProcesses = new System.Windows.Forms.ToolStripStatusLabel();
-			this.listViewProcesses = new System.Windows.Forms.ListView();
+			this.listViewProcesses = new ListViewNoFlickering();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
