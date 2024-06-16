@@ -11,6 +11,8 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Management;
 using System.Security.Cryptography.X509Certificates;
+using OpenHardwareMonitor;
+using System.Runtime.Remoting.Channels;
 
 namespace TaskManager
 {
@@ -40,12 +42,13 @@ namespace TaskManager
         {
             if (!processes.SequenceEqual(Process.GetProcesses().OfType<Process>().ToList()))
                 UpdateListView();
-
             this.processes = Process.GetProcesses().OfType<Process>().ToList();
             statusStrip.Items["toolStripStatusLabelProcesses"].Text = $"Total processes: {processes.Count}, displayed processes {listViewProcesses.Items.Count}";
 
             float fcpu = performanceCounterCPU.NextValue();
-            float fram = performanceCounterRAM.NextValue();
+            float total = new Microsoft.VisualBasic.Devices.ComputerInfo().TotalPhysicalMemory;
+            var used = 1024.0 * 1024.0 * performanceCounterRAM.NextValue();
+            float fram = (float)(100.0 * (total - used) / total);
             metroProgressBarCPU.Value = (int)fcpu;
             metroProgressBarRAM.Value = (int)fram;
             lblCPU.Text = string.Format("{0:0.00}%", fcpu);
@@ -60,6 +63,10 @@ namespace TaskManager
                 chart.ChartAreas[0].AxisX.Maximum = double.NaN;
                 chart.ChartAreas[0].RecalculateAxesScale();
             }
+
+            CpuTemperatureReader ctr = new CpuTemperatureReader();
+            var lines = ctr.GetTemperaturesInCelsius().Select(kv => kv.Key + ": " + kv.Value.ToString() + "°C");
+            richTextBoxTemperature.Text = string.Join(Environment.NewLine, lines);
         }
         void LoadProcesses()
         {
@@ -210,7 +217,7 @@ namespace TaskManager
                 sb.AppendLine(string.Format("CreationClassName: {0}", (string)mo["CreationClassName"]));
                 sb.AppendLine(string.Format("SMBIOSMemoryType: {0}", mo["SMBIOSMemoryType"]));
                 sb.AppendLine(string.Format("BankLabel: {0}", (string)mo["BankLabel"]));
-
+                sb.AppendLine();
             }
             richTextBox.Text = sb.ToString();
         }

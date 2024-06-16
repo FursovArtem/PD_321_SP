@@ -29,15 +29,19 @@
 		private void InitializeComponent()
 		{
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageProcesses = new System.Windows.Forms.TabPage();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelProcesses = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabPagePerformance = new System.Windows.Forms.TabPage();
+            this.buttonRAM = new System.Windows.Forms.Button();
+            this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.lblRAM = new MetroFramework.Controls.MetroLabel();
+            this.lblCPU = new MetroFramework.Controls.MetroLabel();
             this.metroLabelRAM = new MetroFramework.Controls.MetroLabel();
             this.metroProgressBarRAM = new MetroFramework.Controls.MetroProgressBar();
             this.metroProgressBarCPU = new MetroFramework.Controls.MetroProgressBar();
@@ -47,19 +51,16 @@
             this.buttonSystemInformation = new System.Windows.Forms.Button();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.performanceCounterCPU = new System.Diagnostics.PerformanceCounter();
-            this.lblCPU = new MetroFramework.Controls.MetroLabel();
-            this.lblRAM = new MetroFramework.Controls.MetroLabel();
-            this.listViewProcesses = new TaskManager.ListViewNoFlickering();
             this.performanceCounterRAM = new System.Diagnostics.PerformanceCounter();
-            this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.buttonRAM = new System.Windows.Forms.Button();
+            this.listViewProcesses = new TaskManager.ListViewNoFlickering();
+            this.richTextBoxTemperature = new System.Windows.Forms.RichTextBox();
             this.tabControl.SuspendLayout();
             this.tabPageProcesses.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.tabPagePerformance.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.performanceCounterCPU)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.performanceCounterRAM)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -103,6 +104,7 @@
             // 
             // tabPagePerformance
             // 
+            this.tabPagePerformance.Controls.Add(this.richTextBoxTemperature);
             this.tabPagePerformance.Controls.Add(this.buttonRAM);
             this.tabPagePerformance.Controls.Add(this.chart);
             this.tabPagePerformance.Controls.Add(this.lblRAM);
@@ -121,6 +123,63 @@
             this.tabPagePerformance.TabIndex = 1;
             this.tabPagePerformance.Text = "Performance";
             this.tabPagePerformance.UseVisualStyleBackColor = true;
+            // 
+            // buttonRAM
+            // 
+            this.buttonRAM.Location = new System.Drawing.Point(6, 291);
+            this.buttonRAM.Name = "buttonRAM";
+            this.buttonRAM.Size = new System.Drawing.Size(148, 67);
+            this.buttonRAM.TabIndex = 11;
+            this.buttonRAM.Text = "RAM Information";
+            this.buttonRAM.UseVisualStyleBackColor = true;
+            this.buttonRAM.Click += new System.EventHandler(this.buttonRAM_Click);
+            // 
+            // chart
+            // 
+            chartArea1.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea1.AxisX.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Seconds;
+            chartArea1.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Seconds;
+            chartArea1.AxisY.Interval = 50D;
+            chartArea1.AxisY.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea1.AxisY.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
+            chartArea1.AxisY.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
+            chartArea1.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart.Legends.Add(legend1);
+            this.chart.Location = new System.Drawing.Point(9, 56);
+            this.chart.Name = "chart";
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Legend = "Legend1";
+            series1.Name = "CPU";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Legend = "Legend1";
+            series2.Name = "RAM";
+            this.chart.Series.Add(series1);
+            this.chart.Series.Add(series2);
+            this.chart.Size = new System.Drawing.Size(774, 156);
+            this.chart.TabIndex = 10;
+            this.chart.Text = "chart";
+            // 
+            // lblRAM
+            // 
+            this.lblRAM.AutoSize = true;
+            this.lblRAM.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.lblRAM.Location = new System.Drawing.Point(725, 31);
+            this.lblRAM.Name = "lblRAM";
+            this.lblRAM.Size = new System.Drawing.Size(0, 0);
+            this.lblRAM.TabIndex = 9;
+            // 
+            // lblCPU
+            // 
+            this.lblCPU.AutoSize = true;
+            this.lblCPU.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.lblCPU.Location = new System.Drawing.Point(725, 6);
+            this.lblCPU.Name = "lblCPU";
+            this.lblCPU.Size = new System.Drawing.Size(0, 0);
+            this.lblCPU.TabIndex = 8;
             // 
             // metroLabelRAM
             // 
@@ -160,7 +219,7 @@
             // 
             this.richTextBox.Location = new System.Drawing.Point(160, 218);
             this.richTextBox.Name = "richTextBox";
-            this.richTextBox.Size = new System.Drawing.Size(624, 177);
+            this.richTextBox.Size = new System.Drawing.Size(489, 177);
             this.richTextBox.TabIndex = 2;
             this.richTextBox.Text = "";
             // 
@@ -187,7 +246,7 @@
             // timer
             // 
             this.timer.Enabled = true;
-            this.timer.Interval = 1;
+            this.timer.Interval = 1000;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // performanceCounterCPU
@@ -196,23 +255,10 @@
             this.performanceCounterCPU.CounterName = "% Processor Time";
             this.performanceCounterCPU.InstanceName = "_Total";
             // 
-            // lblCPU
+            // performanceCounterRAM
             // 
-            this.lblCPU.AutoSize = true;
-            this.lblCPU.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.lblCPU.Location = new System.Drawing.Point(725, 6);
-            this.lblCPU.Name = "lblCPU";
-            this.lblCPU.Size = new System.Drawing.Size(0, 0);
-            this.lblCPU.TabIndex = 8;
-            // 
-            // lblRAM
-            // 
-            this.lblRAM.AutoSize = true;
-            this.lblRAM.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.lblRAM.Location = new System.Drawing.Point(725, 31);
-            this.lblRAM.Name = "lblRAM";
-            this.lblRAM.Size = new System.Drawing.Size(0, 0);
-            this.lblRAM.TabIndex = 9;
+            this.performanceCounterRAM.CategoryName = "Memory";
+            this.performanceCounterRAM.CounterName = "Available MBytes";
             // 
             // listViewProcesses
             // 
@@ -229,49 +275,13 @@
             this.listViewProcesses.UseCompatibleStateImageBehavior = false;
             this.listViewProcesses.View = System.Windows.Forms.View.Details;
             // 
-            // performanceCounterRAM
+            // richTextBoxTemperature
             // 
-            this.performanceCounterRAM.CategoryName = "Memory";
-            this.performanceCounterRAM.CounterName = "% Committed Bytes In Use";
-            // 
-            // chart
-            // 
-            chartArea3.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea3.AxisX.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Seconds;
-            chartArea3.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Seconds;
-            chartArea3.AxisY.Interval = 50D;
-            chartArea3.AxisY.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea3.AxisY.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
-            chartArea3.AxisY.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
-            chartArea3.Name = "ChartArea1";
-            this.chart.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chart.Legends.Add(legend3);
-            this.chart.Location = new System.Drawing.Point(9, 56);
-            this.chart.Name = "chart";
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series5.Legend = "Legend1";
-            series5.Name = "CPU";
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series6.Legend = "Legend1";
-            series6.Name = "RAM";
-            this.chart.Series.Add(series5);
-            this.chart.Series.Add(series6);
-            this.chart.Size = new System.Drawing.Size(774, 156);
-            this.chart.TabIndex = 10;
-            this.chart.Text = "chart";
-            // 
-            // buttonRAM
-            // 
-            this.buttonRAM.Location = new System.Drawing.Point(6, 291);
-            this.buttonRAM.Name = "buttonRAM";
-            this.buttonRAM.Size = new System.Drawing.Size(148, 67);
-            this.buttonRAM.TabIndex = 11;
-            this.buttonRAM.Text = "RAM Information";
-            this.buttonRAM.UseVisualStyleBackColor = true;
-            this.buttonRAM.Click += new System.EventHandler(this.buttonRAM_Click);
+            this.richTextBoxTemperature.Location = new System.Drawing.Point(655, 218);
+            this.richTextBoxTemperature.Name = "richTextBoxTemperature";
+            this.richTextBoxTemperature.Size = new System.Drawing.Size(128, 177);
+            this.richTextBoxTemperature.TabIndex = 12;
+            this.richTextBoxTemperature.Text = "";
             // 
             // MainForm
             // 
@@ -288,9 +298,9 @@
             this.statusStrip.PerformLayout();
             this.tabPagePerformance.ResumeLayout(false);
             this.tabPagePerformance.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.performanceCounterCPU)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.performanceCounterRAM)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart)).EndInit();
             this.ResumeLayout(false);
 
 		}
@@ -317,6 +327,7 @@
         private System.Diagnostics.PerformanceCounter performanceCounterRAM;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart;
         private System.Windows.Forms.Button buttonRAM;
+        private System.Windows.Forms.RichTextBox richTextBoxTemperature;
     }
 }
 
