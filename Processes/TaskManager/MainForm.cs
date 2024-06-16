@@ -10,9 +10,6 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Management;
-using System.Security.Cryptography.X509Certificates;
-using OpenHardwareMonitor;
-using System.Runtime.Remoting.Channels;
 
 namespace TaskManager
 {
